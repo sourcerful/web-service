@@ -5,7 +5,7 @@ import { useNavigate, Link } from "react-router-dom";
 
 const Navbar = () => {
     const navigate = useNavigate()
-    const [value, setValue] = useState();
+    const [value, setValue] = useState(0);
 
     const tabClick = (event: SyntheticEvent, value: any) => {
         setValue(value)
@@ -20,7 +20,7 @@ const Navbar = () => {
                     </Link>
                     <Typography color="common.white">Bamam</Typography>
                     <Tabs sx={{ marginLeft: 'auto' }} textColor='inherit' value={value} onChange={tabClick} indicatorColor="secondary">
-                        <Tab label={<span style={{ color: 'white' }}>Home</span>} onClick={() => navigate('/home')}/>
+                        <Tab label={<span style={{ color: 'white' }}>Home</span>} onClick={() => navigate('/')}/>
                         <Tab label={<span style={{ color: 'white' }}>Activator</span>} onClick={() => navigate('/activator')}/>
                         <Tab label={<span style={{ color: 'white' }}>About</span>} onClick={() => navigate('/about')}/>
                     </Tabs>

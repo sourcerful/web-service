@@ -38,7 +38,7 @@ function App() {
         <Container fixed>
           <Box sx={{backgroundColor: "#efefef", height: '90vh'}}>
             <Routes>
-                <Route path="/home" element={<Home/>}/>          
+                <Route path="/" element={<Home/>}/>          
                 <Route path="/activator" element={<Activator/>}/>
                 <Route path="/about" element={<About/>}/>          
             </Routes>

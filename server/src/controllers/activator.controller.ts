@@ -1,16 +1,13 @@
 import * as express from 'express';
 import { activatorBodyFormat } from '../data.types';
+import { ActivateService } from '../services/requests.func'
  
 class ActivatorController {
   public path = '/activator';
   public router = express.Router();
  
-  private posts: activatorBodyFormat[] = [
-    {
-      activator: false
-    }
-  ];
- 
+  private posts: activatorBodyFormat[] = []
+  
   constructor() {
     this.intializeRoutes();
   }
@@ -29,10 +26,19 @@ class ActivatorController {
     if(Object.keys(request.body).length === 0){
         throw new Error();
     }
-    const post: activatorBodyFormat = request.body;
-    this.posts.push(post);
-    console.log(post)
-    response.json(post);
+    const postBody: activatorBodyFormat = request.body;
+//  this.posts.push(postBody);
+    console.log(postBody)
+    console.log(this.posts)
+    
+    if(ActivateService(postBody.activator)){
+      console.log(`Service activation: ${postBody.activator}`)
+      response.json(postBody);
+    }
+    else{
+      console.log("ERR: service didn't activate.")
+      throw new Error("Service didn't work")
+    }
   }
 }
  

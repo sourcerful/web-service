@@ -17,15 +17,14 @@ class ActivatorController {
  
   public intializeRoutes() {
     this.router.get(this.path, this.getAllPosts);
-    this.router.post(this.path, this.createAPost);
+    this.router.post(this.path, this.createPost);
   }
  
-  getAllPosts = (request: express.Request, response: express.Response) => {
+  public getAllPosts = (request: express.Request, response: express.Response) => {
     response.send(this.posts);
   }
  
-  createAPost = (request: express.Request, response: express.Response, next: express.NextFunction) => { 
-    
+  public createPost = (request: express.Request, response: express.Response) => {  
     if(Object.keys(request.body).length === 0){
         throw new Error();
     }

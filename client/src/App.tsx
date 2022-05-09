@@ -1,52 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Home from './components/Home';
 import Navbar from './components/Navbar'
 import Activator from './components/Activator';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom"
-import { createTheme } from '@mui/material/styles';
-import { Container, CssBaseline, ThemeProvider, Box } from '@mui/material';
-import { blue } from '@mui/material/colors';
+import { Container, CssBaseline, ThemeProvider, Box, Paper } from '@mui/material';
 import About from './components/About';
- 
+import darkTheme from './services/darkTheme';
+import lightTheme from './services/lightTheme';
+import { observer } from 'mobx-react'; 
+import {useContext} from 'react';
+import {StoreContext} from './index'
+
 function App() {
-  let theme = createTheme({
-    palette: {
-      primary: {
-        main: '#fefefe'
-      },
-      secondary: blue,
-      background: {
-        default: "#dedede"
-      }
-    }, 
-    typography: {
-      fontFamily: 'Quicksand',
-      fontWeightLight: 400,
-      fontWeightRegular: 400,
-      fontWeightMedium: 400,
-      fontWeightBold: 400
-    }
-  }) 
   
+  const store = useContext(StoreContext)
+  const applyTheme = store.stores.themeStore.isLightMode
+
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={applyTheme ? lightTheme : darkTheme}>
     <CssBaseline/>
       <Router>
         <Navbar/>
         <Container fixed>
-          <Box sx={{backgroundColor: "#efefef", height: '90vh'}}>
+          <Paper sx={{backgroundColor: 'primary.main', flexDirection: 'column', marginTop: 2, marginBottom: 2, padding: 2}}>
             <Routes>
                 <Route path="/" element={<Home/>}/>          
                 <Route path="/activator" element={<Activator/>}/>
                 <Route path="/about" element={<About/>}/>          
             </Routes>
-          </Box>
+          </Paper>
         </Container>
       </Router>
     </ThemeProvider>
   );
 }
 
-export default App;
+export default observer(App);

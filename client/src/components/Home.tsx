@@ -26,7 +26,7 @@ const Home = () => {
         <div>
             <CssBaseline/>
             <Box component="form" sx={boxStyling}>
-                <Typography variant="h2" className={classes.typo}>Home</Typography>
+                <Typography variant="h3" className={classes.typo}>Home</Typography>
                 <Typography variant="h4" className={classes.typo}>Welcome to my website!</Typography>
                 <Typography variant="h6" className={classes.typo}>This is the home page of the website, in order to use the
                 service, hop over to the {<Link to="/activator"> Activator </Link>} page.</Typography>

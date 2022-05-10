@@ -28,7 +28,8 @@ const FileUploader = () => {
      ) 
     });
     
-  
+    //add delete
+
     return (
       <section className="container">
         <div {...getRootProps({ className: 'dropzone' })}>

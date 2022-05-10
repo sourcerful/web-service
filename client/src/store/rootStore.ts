@@ -1,4 +1,4 @@
-import {makeObservable, computed, action, observable} from "mobx";
+import {makeObservable, computed, action, observable, makeAutoObservable} from "mobx";
 import {reqBodyDTO} from "../types/types"
 
 interface Stores{
@@ -15,10 +15,12 @@ class rootStore{
 }
 
 class ThemeStore{
+    rootStore: rootStore
     isLightMode = false;
 
     constructor(root: rootStore){
-        makeObservable(this, {isLightMode: observable, mode: computed, toggle: action})
+        this.rootStore = root
+        makeAutoObservable(this, {rootStore: false, isLightMode: observable, mode: computed, toggle: action})
     }
 
     get mode(){
@@ -32,10 +34,15 @@ class ThemeStore{
 }
 
 class RequestDataStore{
-    requestBody: reqBodyDTO;
+    rootStore: rootStore
+    requestBody: reqBodyDTO = {activator: false};
     
     constructor(root: rootStore){
-        this.requestBody = {activator: false}
+        this.rootStore = root
+        makeAutoObservable(this, {rootStore: false, requestBody: observable, data: computed})
+    }
+    get data(){
+        return this.requestBody
     }
 }
 

@@ -1,11 +1,12 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useContext } from "react";
 import { useState } from "react";
 import '../index.css';
 import { createTheme, Theme } from '@mui/material/styles';
 import { reqBodyDTO } from "../types/types";
-import { Fab, Grid, Stack, TextField, Typography } from "@mui/material";
+import { Grid, Stack, TextField, Typography } from "@mui/material";
 import { makeStyles } from '@mui/styles';
 import {validateIP, validatePort} from '../services/validations';
+import {StoreContext} from "../index";
 import FileUploader from './FileUploader'
 
 const initialValues: reqBodyDTO = {
@@ -27,22 +28,33 @@ const Form = () => {
     const [values, setValues] = useState(initialValues)
     const [validations, setValidations] = useState({IP: true, Port: true})
     const classes = useStyles()
+    const store = useContext(StoreContext)
 
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const {name, value} = event.target
         
         if(name === "IP"){
             setValidations({...validations, IP: validateIP(value)})
+            if(validations.IP){
+                setValues({
+                    ...values,
+                    [name]: value
+                })
+            }
         }
         else if(name === "Port"){
             setValidations({...validations, Port: validatePort(value)})
+            if(validations.Port){
+                setValues({
+                    ...values,
+                    [name]: value
+                })
+            }
         }
 
-        if(validations.IP || validations.Port){
-            setValues({
-                ...values,
-                [name]: value
-            })
+        if(validations.IP && validations.Port){            
+            console.log(values.IP + ": " + values.Port)
+            store.stores.requestDataStore.requestBody = values
         }
     }
 
@@ -64,10 +76,7 @@ const Form = () => {
                 <Grid item xs={5}>
                     <FileUploader/>
                 </Grid>
-            </Grid>
-            <Fab color="secondary" variant="extended" size="large" sx={{marginTop: 3}}>
-                Submit
-            </Fab>        
+            </Grid>                 
         </>
     );
 }

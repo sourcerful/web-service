@@ -7,6 +7,7 @@ export interface reqBodyDTO{
     activator: boolean
     IP?: string
     Port?: string
-    fileInfo?: FileDTO[]
+    files?: File[]
+    formData: FormData
+ //   fileInfo?: FileDTO[]
 }
-

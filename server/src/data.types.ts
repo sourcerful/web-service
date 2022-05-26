@@ -1,11 +1,13 @@
 import { IsBoolean, IsString } from 'class-validator';
 import { Request, Response, NextFunction, Router } from 'express';
 
-export class activatorBodyFormat{
-    @IsBoolean()
-    activator?: boolean
-    // @IsString()
-    // destIP?: string
+export interface reqBodyDTO{
+    activator: boolean
+    IP?: string
+    Port?: string
+    files?: File[]
+    formData: FormData
+ //   fileInfo?: FileDTO[]
 }
 
 export interface Controller{
@@ -14,5 +16,5 @@ export interface Controller{
 }
 
 export interface CustomRequest extends Request{
-    data ?: activatorBodyFormat
+    data ?: reqBodyDTO
 }

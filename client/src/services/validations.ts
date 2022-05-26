@@ -1,20 +1,22 @@
-export const validateIP = (IPaddr: string): boolean => {
-    let regEx = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+export const validate = (type: string, value: string): boolean => {
+    if(type === "IP"){
+        let regEx = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
 
-    if(IPaddr.match(regEx)){
-        return true
+        if(value.match(regEx)){
+            return true
+        }
+        else{
+            return false
+        }
     }
-    else{
-        return false
+    else if (type === "Port"){
+        if(parseInt(value) > 0 && parseInt(value) < 65535){
+            return true
+        }
+        else{
+            return false
+        }
     }
 
+    return false
 } 
-
-export const validatePort = (port: string): boolean => {
-    if(parseInt(port) > 0 && parseInt(port) < 65535){
-        return true
-    }
-    else{
-        return false
-    }
-}

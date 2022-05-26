@@ -4,7 +4,6 @@ import { useNavigate, Link } from "react-router-dom";
 import { makeStyles } from '@mui/styles';
 
 const Home = () => {
-    const navigate = useNavigate()
 
     const useStyles: any = makeStyles((theme: Theme) => ({
         typo: {

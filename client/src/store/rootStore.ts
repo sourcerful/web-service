@@ -35,7 +35,7 @@ class ThemeStore{
 
 class RequestDataStore{
     rootStore: rootStore
-    requestBody: reqBodyDTO = {activator: false};
+    requestBody: reqBodyDTO = {activator: false, formData: new FormData()};
     
     constructor(root: rootStore){
         this.rootStore = root

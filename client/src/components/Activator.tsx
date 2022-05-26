@@ -5,7 +5,7 @@ import FormGroup from "@mui/material/FormGroup"
 import { FormControl, FormLabel, Typography, CssBaseline, Box, Grid, Paper, Fab } from "@mui/material";
 import { Theme } from '@mui/material/styles'
 import { makeStyles } from '@mui/styles'
-import { requestPostActivator } from "../services/requests";
+import { requestPostActivator, uploadFilesService } from "../services/requests";
 import {StoreContext} from "../index";
 import Form from "./Form"
 
@@ -19,8 +19,12 @@ const Activator = () => {
     const store = useContext(StoreContext)
 
     useEffect(() => {
-      console.log(checked) //change to submit?
-      requestPostActivator({activator: checked})
+      store.stores.requestDataStore.requestBody.activator = checked
+      if(checked){
+        store.stores.requestDataStore.requestBody.formData = new FormData()
+      }
+      console.log(store.stores.requestDataStore.requestBody)
+      requestPostActivator(store.stores.requestDataStore.requestBody)
     }, [checked])
    
     const useStyles: any = makeStyles((theme: Theme) => ({
@@ -48,9 +52,8 @@ const Activator = () => {
     let botBoxStyling = {'& > :not(style)': {m: 2, width: '120ch'}, marginBottom: 2}
 
     const checkForm = () => {
-      //on submit, post to server
-      console.log("submitted")
-      
+      uploadFilesService(store.stores.requestDataStore.requestBody)
+      //check response
     }
 
     return (
